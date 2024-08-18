@@ -39,15 +39,7 @@
             border-radius: 0%;
         }
 
-        .contact-info {
-            margin-top: 20px;
-        }
-
-        .projects {
-            margin-top: 20px;
-        }
-
-        .reactive-project {
+        .contact-info, .reactive-project, .game, .blog {
             margin-top: 20px;
         }
 
@@ -59,6 +51,42 @@
             position: fixed;
             bottom: 0;
             width: 100%;
+        }
+
+        .game-container {
+            text-align: center;
+        }
+
+        .game-board {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            grid-gap: 5px;
+            justify-content: center;
+        }
+
+        .game-cell {
+            width: 100px;
+            height: 100px;
+            background-color: #fff;
+            border: 2px solid #007bff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            cursor: pointer;
+        }
+
+        .game-cell:hover {
+            background-color: #e7e7e7;
+        }
+
+        .game-status {
+            margin-top: 10px;
+            font-size: 1.2rem;
+        }
+
+        .blog-post {
+            margin-bottom: 20px;
         }
     </style>
 </head>
@@ -81,6 +109,9 @@
         <ul>
             <li>C Programming</li>
             <li>HTML</li>
+            <li>Python</li>
+            <li>Machine Learning</li>
+            <li>Bootstrap</li>
             <!-- Add more skills as needed -->
         </ul>
     </section>
@@ -89,10 +120,10 @@
         <h2>Projects</h2>
 
         <div class="project">
-            <h3>Online Library Management System</h3>
-            <p><strong>Description:</strong> Developed an online library management system to streamline book tracking and user management.</p>
-            <p><strong>Your Role and Responsibilities:</strong> Designed and implemented backend logic using C. Created a user-friendly HTML interface for the frontend.</p>
-            <p><strong>Results or Outcomes:</strong> Improved efficiency in book tracking and user management. Enhanced the overall organization of the library system.</p>
+            <h3>EcoForecast: AI-Powered Prediction Of Carbon Monoxide Levels</h3>
+            <p><strong>Description:</strong> Utilized AI and machine learning to predict carbon monoxide levels.</p>
+            <p><strong>Technologies Used:</strong> Python, Exploratory Data Analysis, Data Preprocessing Techniques, Machine Learning, HTML, Bootstrap</p>
+            <p><strong>Results or Outcomes:</strong> Improved environmental monitoring and safety measures.</p>
         </div>
 
         <!-- Add more projects as needed -->
@@ -100,8 +131,8 @@
 
     <section class="certifications">
         <h2>Certifications and Internships</h2>
-        <img src="UIcertificate.jpeg" >
-        <img src="Ccertificate.jpeg" >
+        <img src="UIcertificate.jpeg" alt="UI Certification">
+        <img src="Ccertificate.jpeg" alt="C Programming Certification">
     </section>
 
     <section class="contact-info">
@@ -114,6 +145,72 @@
     <section class="reactive-project">
         <h2>Reactive Project</h2>
         <!-- Add details about your reactive project using HTML, CSS, and JavaScript -->
+    </section>
+
+    <section class="game">
+        <h2>Game: XOX (Tic-Tac-Toe)</h2>
+        <div class="game-container">
+            <div class="game-board" id="board">
+                <div class="game-cell" onclick="makeMove(this)"></div>
+                <div class="game-cell" onclick="makeMove(this)"></div>
+                <div class="game-cell" onclick="makeMove(this)"></div>
+                <div class="game-cell" onclick="makeMove(this)"></div>
+                <div class="game-cell" onclick="makeMove(this)"></div>
+                <div class="game-cell" onclick="makeMove(this)"></div>
+                <div class="game-cell" onclick="makeMove(this)"></div>
+                <div class="game-cell" onclick="makeMove(this)"></div>
+                <div class="game-cell" onclick="makeMove(this)"></div>
+            </div>
+            <div class="game-status" id="status">Player X's turn</div>
+        </div>
+        <script>
+            let currentPlayer = 'X';
+            const board = document.getElementById('board');
+            const status = document.getElementById('status');
+            
+            function makeMove(cell) {
+                if (cell.textContent === '' && !checkWinner()) {
+                    cell.textContent = currentPlayer;
+                    if (checkWinner()) {
+                        status.textContent = `Player ${currentPlayer} wins!`;
+                    } else if (Array.from(board.children).every(c => c.textContent !== '')) {
+                        status.textContent = 'It\'s a draw!';
+                    } else {
+                        currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+                        status.textContent = `Player ${currentPlayer}'s turn`;
+                    }
+                }
+            }
+
+            function checkWinner() {
+                const cells = Array.from(board.children).map(c => c.textContent);
+                const winPatterns = [
+                    [0, 1, 2], [3, 4, 5], [6, 7, 8], // Rows
+                    [0, 3, 6], [1, 4, 7], [2, 5, 8], // Columns
+                    [0, 4, 8], [2, 4, 6]              // Diagonals
+                ];
+                
+                return winPatterns.some(pattern => {
+                    const [a, b, c] = pattern;
+                    return cells[a] && cells[a] === cells[b] && cells[a] === cells[c];
+                });
+            }
+        </script>
+    </section>
+
+    <section class="blog">
+        <h2>Blog</h2>
+        <div class="blog-post">
+            <h3>How I Created My Portfolio and the Lessons I've Learned</h3>
+            <p>Creating my portfolio has been a journey full of both technical challenges and personal growth. As I navigated through the complexities of coding and design, I realized that this project was not just about showcasing my skills but also about evolving as a person.</p>
+            <p>Each day, I set out to learn something new—whether it was mastering a new technology or refining my problem-solving skills. But beyond the technical aspects, I discovered valuable life lessons along the way. For instance, I learned the importance of patience and perseverance. Debugging code and refining designs taught me that success often comes after overcoming multiple hurdles.</p>
+            <p>Through this process, I also learned to embrace failure as a stepping stone to growth. Every error and setback became an opportunity to learn and improve. This mindset has not only enhanced my technical abilities but has also helped me grow personally, teaching me resilience and the value of a positive attitude.</p>
+            <p>Moreover, working on this portfolio project helped me better understand the balance between professional ambition and personal well-being. I realized that while it’s important to strive for excellence, it’s equally crucial to take time for self-care and reflection. This balance has enriched my life beyond coding, influencing how I approach challenges and opportunities in everyday life.</p>
+            <p>In addition to these lessons, I’ve found joy in exploring new hobbies and interests outside of work. From taking up new sports to diving into creative writing, these activities have broadened my horizons and added a sense of fulfillment to my daily routine. They remind me that growth is a continuous process, both in our professional and personal lives.</p>
+            <p>In summary, building this portfolio has been more than a technical endeavor; it has been a journey of personal discovery and growth. I’m excited to continue this journey, applying these lessons to both my professional and personal life as I explore new adventures and opportunities.</p>
+            <a href="#">Read more</a>
+        </div>
+        <!-- Add more blog posts as needed -->
     </section>
 
     <footer>
